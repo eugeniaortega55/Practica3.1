@@ -60,3 +60,13 @@
                 alert("No se ha podido crear el endpoint.")
             }
         }
+
+        const getAPI = async () => {
+          try {
+            const res = await fetch(localStorage.URL);
+            return res.json();
+          } catch (e) {
+            alert("No se ha podido recuperar la información.")
+          }
+        }
+        
