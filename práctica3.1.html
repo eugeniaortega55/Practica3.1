@@ -165,3 +165,62 @@
                     <button class="index">Volver</button>
                 </div>`;
         }
+
+        
+
+        const initContr = async () => {
+            if (!localStorage.URL) {
+                localStorage.URL = await postAPI(mis_peliculas_iniciales);
+            }
+            await indexContr();
+        }
+
+        const indexContr = async () => {
+            mis_peliculas = await getAPI() || [];
+            document.getElementById('main').innerHTML = await indexView(mis_peliculas);
+        }
+
+        const showContr = (i) => {
+            document.getElementById('main').innerHTML = showView(mis_peliculas[i]);
+        }
+
+        const newContr = () => {
+            document.getElementById('main').innerHTML = newView();
+
+        }
+
+        const createContr = async () => {
+            let n_titulo   = document.getElementById('titulo').value;
+            let n_director = document.getElementById('director').value;
+            let n_miniatura = document.getElementById('miniatura').value;
+            mis_peliculas.push({titulo: n_titulo, director: n_director, miniatura: n_miniatura});
+            await updateAPI(mis_peliculas);
+            indexContr();
+        }
+
+        const editContr = (i) => {
+            document.getElementById('main').innerHTML = editView(i,  mis_peliculas[i]);
+        }
+
+        const updateContr = async (i) => {
+            mis_peliculas[i].titulo   = document.getElementById('titulo').value;
+            mis_peliculas[i].director = document.getElementById('director').value;
+            mis_peliculas[i].miniatura = document.getElementById('miniatura').value;
+            await updateAPI(mis_peliculas);
+            await indexContr();
+        }
+
+        const deleteContr = async (i) => {
+            if (confirm(`Borrar ${mis_peliculas[i].titulo}`)) {
+                mis_peliculas.splice(i, 1); // elimina elemento i del array
+                await updateAPI(mis_peliculas);
+                await indexContr();
+            }
+        }
+
+        const resetContr = async () => {
+            mis_peliculas = [...mis_peliculas_iniciales];
+            await updateAPI(mis_peliculas);
+            await indexContr();
+        }
+
