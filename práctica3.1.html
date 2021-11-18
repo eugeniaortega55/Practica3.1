@@ -84,3 +84,84 @@
             return;
           }
         }
+
+
+        const indexView = (peliculas) => {
+            let i=0;
+            let view = "";
+            if(!peliculas.length) { 
+              view += "<div>Sin resultados</div>";
+            } else {
+                while(i < peliculas.length) {
+                  view += `
+                    <div class="movie">
+                       <div class="movie-img">
+                            <img class="show" data-my-id="${i}" src="${peliculas[i].miniatura}" onerror="this.src='files/placeholder.png'"/>
+                       </div>
+                       <div class="title">
+                           ${peliculas[i].titulo || "<em>Sin título</em>"}
+                       </div>
+                       <div class="actions">
+                           <button class="show" data-my-id="${i}">ver</button>
+                           <button class="edit" data-my-id="${i}">editar</button>
+                           <button class="delete" data-my-id="${i}"">borrar</button>
+                        </div>
+                    </div>\n`;
+                  i = i + 1;
+                }
+            }
+
+            view += `<div class="actions">
+                        <button class="new"> Añadir</button>
+                        <button class="reset">Reset</button>
+                        </div>`;
+
+            return view;
+        }
+
+        const editView = (i, pelicula) => {
+            return `<h2>Editar Película </h2>
+                <div class="field">
+                Título <br>
+                <input  type="text" id="titulo" placeholder="Título" 
+                        value="${pelicula.titulo}">
+                </div>
+                <div class="field">
+                Director <br>
+                <input  type="text" id="director" placeholder="Director" 
+                        value="${pelicula.director}">
+                </div>
+                <div class="field">
+                Miniatura <br>
+                <input  type="text" id="miniatura" placeholder="URL de la miniatura" 
+                        value="${pelicula.miniatura}">
+                </div>
+                <div class="actions">
+                    <button class="update" data-my-id="${i}">
+                        Actualizar
+                    </button>
+                    <button class="index">
+                        Volver
+                    </button>
+                </div>`;
+        }
+
+        const showView = (pelicula) => {
+            return `
+             <p>
+                La película <b> ${pelicula.titulo} </b> fue 
+                dirigida por <b> ${pelicula.director}</b>!
+             </p>
+             <button class="index">Volver</button>`;
+        }
+
+        const newView = () => {
+            return `<h2>Crear Película</h2>
+                <div class="field">Título<br> <input  type="text" id="titulo" placeholder="Título" > </div>
+                <div class="field">Director<br> <input  type="text" id="director" placeholder="Director" > </div>
+                <div class="field">Miniatura<br> <input  type="text" id="miniatura" placeholder="URL de la miniatura" ></div>
+                <div class="actions">
+                    <button class="create">Crear</button>
+                    <button class="index">Volver</button>
+                </div>`;
+        }
