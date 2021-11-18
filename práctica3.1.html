@@ -33,3 +33,30 @@
     </style>
 
     <script type="text/javascript">
+
+
+        let mis_peliculas_iniciales = [
+           {titulo: "Superlópez",   director: "Javier Ruiz Caldera", "miniatura": "files/superlopez.png"},
+           {titulo: "Jurassic Park", director: "Steven Spielberg", "miniatura": "files/jurassicpark.png"},
+           {titulo: "Interstellar",  director: "Christopher Nolan", "miniatura": "files/interstellar.png"}
+        ];
+
+        let mis_peliculas = [];
+
+// Ejercicio 1
+
+        const postAPI = async (peliculas) => {
+            try {
+                const res = await fetch("https://api.myjson.com/bins", {
+                  method: 'POST', 
+                  headers:{
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(peliculas)
+                });
+                const {uri} = await res.json();
+                return uri;               
+            } catch (err) {
+                alert("No se ha podido crear el endpoint.")
+            }
+        }
