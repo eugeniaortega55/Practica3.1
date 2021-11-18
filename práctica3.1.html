@@ -70,3 +70,17 @@
           }
         }
         
+
+        const updateAPI = async (peliculas) => {
+          try {
+            await fetch(localStorage.URL, {
+              method: 'PUT', 
+              headers:{
+                      "Content-Type": "application/json",
+                  },
+              body: JSON.stringify(peliculas)});
+          } catch(e) {
+            alert("Ha ocurrido un error");
+            return;
+          }
+        }
